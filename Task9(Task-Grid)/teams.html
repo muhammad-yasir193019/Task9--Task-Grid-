@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskGrid — Teams</title>
+  <meta name="description" content="TaskGrid teams management — view and manage your teams and members.">
+  <meta name="keywords" content="team management, members, collaboration, TaskGrid">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body class="antialiased text-gray-800 bg-gray-50">
+
+  <header class="sticky top-0 z-50 bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="static/images/logo.jpg" loading="lazy" alt="TaskGrid Logo" class="h-10 w-10 rounded-full object-cover ring-2 ring-blue-500" />
+        <span class="font-bold text-xl text-blue-600">TaskGrid</span>
+      </a>
+      <nav class="hidden md:flex items-center font-medium gap-6">
+        <a href="index.html" class="hover:text-blue-600 transition">Dashboard</a>
+        <a href="teams.html" class="hover:text-blue-600 transition text-blue-600 font-semibold">Teams</a>
+        <a href="tasks.html" class="hover:text-blue-600 transition">Tasks</a>
+        <a href="analytics.html" class="hover:text-blue-600 transition">Analytics</a>
+        <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
+      </nav>
+      <div class="md:hidden">
+        <button id="nav-toggle" aria-label="Toggle navigation" class="p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg py-4 px-4">
+      <div class="flex flex-col gap-4 font-medium">
+        <a href="index.html" class="hover:text-blue-600 transition py-2">Dashboard</a>
+        <a href="teams.html" class="hover:text-blue-600 transition py-2 text-blue-600 font-semibold">Teams</a>
+        <a href="tasks.html" class="hover:text-blue-600 transition py-2">Tasks</a>
+        <a href="analytics.html" class="hover:text-blue-600 transition py-2">Analytics</a>
+        <a href="contact.html" class="hover:text-blue-600 transition py-2">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="py-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-3xl font-bold mb-8">Teams Management</h1>
+        <div class="mb-8">
+          <button id="add-team-btn" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+            <i class="fas fa-plus mr-2"></i>Add New Team
+          </button>
+        </div>
+        <div id="teams-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <div id="add-team-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <h2 class="text-xl font-bold mb-4">Add New Team</h2>
+        <form id="add-team-form">
+          <div class="mb-4">
+            <label for="team-name" class="block text-gray-700 mb-2">Team Name</label>
+            <input type="text" id="team-name" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+          </div>
+          <div class="mb-4">
+            <label for="department" class="block text-gray-700 mb-2">Department</label>
+            <input type="text" id="department" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+          </div>
+          <div class="mb-4">
+            <label for="members" class="block text-gray-700 mb-2">Members (comma separated)</label>
+            <input type="text" id="members" placeholder="John Doe, Jane Smith" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+          </div>
+          <div class="flex justify-end gap-3">
+            <button type="button" id="cancel-team-btn" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Team</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="team-members-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <h2 id="modal-team-name" class="text-xl font-bold mb-4"></h2>
+        <div id="modal-team-members" class="mb-4"></div>
+        <button id="close-members-modal" class="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Close</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="static/images/logo.jpg" loading="lazy" alt="TaskGrid" class="h-12 w-12 rounded-full ring-2 ring-blue-500 object-cover" />
+        <div>
+          <h2 class="font-semibold">TaskGrid</h2>
+          <p class="text-sm text-gray-300">Smart Team Management Web App</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 text-2xl">
+        <a href="https://facebook.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook" class="hover:text-blue-500 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://linkedin.com/company/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn" class="hover:text-blue-700 transition"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our GitHub" class="hover:text-gray-400 transition"><i class="fab fa-github"></i></a>
+        <a href="https://instagram.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube" class="hover:text-red-500 transition"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="mt-6 text-center text-xs text-gray-400">&copy; 2025 TaskGrid | All rights reserved</div>
+  </footer>
+
+  <script src="static/js/script.js"></script>
+</body>
+</html>

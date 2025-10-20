@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskGrid — Tasks</title>
+  <meta name="description" content="TaskGrid task board — organize, track, and manage your team's tasks.">
+  <meta name="keywords" content="task board, project management, productivity, TaskGrid">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body class="antialiased text-gray-800 bg-gray-50">
+
+  <header class="sticky top-0 z-50 bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="static/images/logo.jpg" loading="lazy" alt="TaskGrid Logo" class="h-10 w-10 rounded-full object-cover ring-2 ring-blue-500" />
+        <span class="font-bold text-xl text-blue-600">TaskGrid</span>
+      </a>
+      <nav class="hidden md:flex items-center font-medium gap-6">
+        <a href="index.html" class="hover:text-blue-600 transition">Dashboard</a>
+        <a href="teams.html" class="hover:text-blue-600 transition">Teams</a>
+        <a href="tasks.html" class="hover:text-blue-600 transition text-blue-600 font-semibold">Tasks</a>
+        <a href="analytics.html" class="hover:text-blue-600 transition">Analytics</a>
+        <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
+      </nav>
+      <div class="md:hidden">
+        <button id="nav-toggle" aria-label="Toggle navigation" class="p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg py-4 px-4">
+      <div class="flex flex-col gap-4 font-medium">
+        <a href="index.html" class="hover:text-blue-600 transition py-2">Dashboard</a>
+        <a href="teams.html" class="hover:text-blue-600 transition py-2">Teams</a>
+        <a href="tasks.html" class="hover:text-blue-600 transition py-2 text-blue-600 font-semibold">Tasks</a>
+        <a href="analytics.html" class="hover:text-blue-600 transition py-2">Analytics</a>
+        <a href="contact.html" class="hover:text-blue-600 transition py-2">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="py-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-3xl font-bold mb-8">Task Board</h1>
+
+        <div class="bg-white rounded-lg shadow p-4 mb-6 flex flex-col md:flex-row gap-4">
+          <div class="flex-1">
+            <label for="team-filter" class="block text-gray-700 mb-2">Filter by Team</label>
+            <select id="team-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+              <option value="">All Teams</option>
+            </select>
+          </div>
+          <div class="flex-1">
+            <label for="priority-filter" class="block text-gray-700 mb-2">Filter by Priority</label>
+            <select id="priority-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+              <option value="">All Priorities</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <div class="flex-1">
+            <label for="search" class="block text-gray-700 mb-2">Search Tasks</label>
+            <input type="text" id="search" placeholder="Search by title..." class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+          </div>
+        </div>
+
+        <div id="task-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-xl font-bold mb-4">Add New Task</h2>
+          <form id="add-task-form">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label for="task-title" class="block text-gray-700 mb-2">Task Title</label>
+                <input type="text" id="task-title" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+              </div>
+              <div>
+                <label for="task-deadline" class="block text-gray-700 mb-2">Deadline</label>
+                <input type="date" id="task-deadline" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="task-description" class="block text-gray-700 mb-2">Description</label>
+              <textarea id="task-description" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label for="task-team" class="block text-gray-700 mb-2">Team</label>
+                <select id="task-team" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                  <option value="">Select Team</option>
+                </select>
+              </div>
+              <div>
+                <label for="task-priority" class="block text-gray-700 mb-2">Priority</label>
+                <select id="task-priority" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                  <option value="">Select Priority</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="task-assigned" class="block text-gray-700 mb-2">Assigned To</label>
+              <input type="text" id="task-assigned" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">Add Task</button>
+          </form>
+          <div id="task-success-message" class="hidden mt-4 p-3 bg-green-100 text-green-700 rounded"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="static/images/logo.jpg" loading="lazy" alt="TaskGrid" class="h-12 w-12 rounded-full ring-2 ring-blue-500 object-cover" />
+        <div>
+          <h2 class="font-semibold">TaskGrid</h2>
+          <p class="text-sm text-gray-300">Smart Team Management Web App</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 text-2xl">
+        <a href="https://facebook.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook" class="hover:text-blue-500 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://linkedin.com/company/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn" class="hover:text-blue-700 transition"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our GitHub" class="hover:text-gray-400 transition"><i class="fab fa-github"></i></a>
+        <a href="https://instagram.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube" class="hover:text-red-500 transition"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="mt-6 text-center text-xs text-gray-400">&copy; 2025 TaskGrid | All rights reserved</div>
+  </footer>
+
+  <script src="static/js/script.js"></script>
+</body>
+</html>

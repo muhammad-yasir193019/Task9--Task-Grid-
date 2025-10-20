@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TaskGrid — Dashboard</title>
+  <meta name="description" content="TaskGrid dashboard — overview of teams, tasks, and progress.">
+  <meta name="keywords" content="task management, dashboard, team overview, TaskGrid">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body class="antialiased text-gray-800 bg-gray-50">
+
+  <header class="sticky top-0 z-50 bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="static/images/logo.jpg" loading="lazy" alt="TaskGrid Logo" class="h-10 w-10 rounded-full object-cover ring-2 ring-blue-500" />
+        <span class="font-bold text-xl text-blue-600">TaskGrid</span>
+      </a>
+      <nav class="hidden md:flex items-center font-medium gap-6">
+        <a href="index.html" class="hover:text-blue-600 transition text-blue-600 font-semibold">Dashboard</a>
+        <a href="teams.html" class="hover:text-blue-600 transition">Teams</a>
+        <a href="tasks.html" class="hover:text-blue-600 transition">Tasks</a>
+        <a href="analytics.html" class="hover:text-blue-600 transition">Analytics</a>
+        <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
+      </nav>
+      <div class="md:hidden">
+        <button id="nav-toggle" aria-label="Toggle navigation" class="p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg py-4 px-4">
+      <div class="flex flex-col gap-4 font-medium">
+        <a href="index.html" class="hover:text-blue-600 transition py-2 text-blue-600 font-semibold">Dashboard</a>
+        <a href="teams.html" class="hover:text-blue-600 transition py-2">Teams</a>
+        <a href="tasks.html" class="hover:text-blue-600 transition py-2">Tasks</a>
+        <a href="analytics.html" class="hover:text-blue-600 transition py-2">Analytics</a>
+        <a href="contact.html" class="hover:text-blue-600 transition py-2">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Manage Your Projects Effortlessly with TaskGrid</h1>
+        <p class="text-xl mb-8 max-w-3xl mx-auto">Organize, Track, and Collaborate visually with our intuitive task management platform.</p>
+        <a href="tasks.html" class="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition duration-300">Start Managing</a>
+      </div>
+    </section>
+    
+    <section class="py-12">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Overview</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="overview-cards"></div>
+      </div>
+    </section>
+    
+    <section class="py-12 bg-gray-100">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Key Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow p-6 text-center">
+            <div class="text-blue-500 text-4xl mb-4"><i class="fas fa-columns"></i></div>
+            <h3 class="text-xl font-bold mb-3">Visual Task Board</h3>
+            <p class="text-gray-600">Organize tasks in a visual board with drag-and-drop functionality for easy management.</p>
+          </div>
+          <div class="bg-white rounded-lg shadow p-6 text-center">
+            <div class="text-green-500 text-4xl mb-4"><i class="fas fa-chart-line"></i></div>
+            <h3 class="text-xl font-bold mb-3">Smart Progress Analytics</h3>
+            <p class="text-gray-600">Track team performance and project progress with detailed analytics and reports.</p>
+          </div>
+          <div class="bg-white rounded-lg shadow p-6 text-center">
+            <div class="text-purple-500 text-4xl mb-4"><i class="fas fa-mobile-alt"></i></div>
+            <h3 class="text-xl font-bold mb-3">Responsive Design</h3>
+            <p class="text-gray-600">Access your tasks and team data from any device with our fully responsive design.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="static/images/logo.jpg" loading="lazy" alt="TaskGrid" class="h-12 w-12 rounded-full ring-2 ring-blue-500 object-cover" />
+        <div>
+          <h2 class="font-semibold">TaskGrid</h2>
+          <p class="text-sm text-gray-300">Smart Team Management Web App</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 text-2xl">
+        <a href="https://facebook.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook" class="hover:text-blue-500 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://linkedin.com/company/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn" class="hover:text-blue-700 transition"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our GitHub" class="hover:text-gray-400 transition"><i class="fab fa-github"></i></a>
+        <a href="https://instagram.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com/taskgrid" target="_blank" rel="noopener noreferrer" aria-label="Visit our YouTube" class="hover:text-red-500 transition"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="mt-6 text-center text-xs text-gray-400">&copy; 2025 TaskGrid | All rights reserved</div>
+  </footer>
+
+  <script src="static/js/script.js"></script>
+</body>
+</html>
